@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class AddressTextField extends StatelessWidget {
+  const AddressTextField({
+    Key? key,
+    required this.label,
+    this.controller,
+    this.inputType,
+    this.hintText,
+    this.labelTheme,
+  }) : super(key: key);
+
+  final String label;
+  final TextEditingController? controller;
+  final TextInputType? inputType;
+  final String? hintText;
+  final TextStyle? labelTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: labelTheme ??
+              GoogleFonts.montserrat(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+              ),
+        ),
+        SizedBox(
+          height: 7.h,
+        ),
+        Container(
+          width: 330.w,
+          height: 100.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5.r),
+          ),
+          child: TextField(
+            controller: controller,
+            keyboardType: inputType,
+            style: GoogleFonts.montserrat(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.black.withOpacity(0.5),
+            ),
+            cursorColor: Colors.grey.withOpacity(0.07),
+            maxLines: 5,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(10.w),
+              hintText: hintText,
+              fillColor: Colors.grey.withOpacity(0.07),
+              filled: true,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.r),
+                borderSide: BorderSide(color: Colors.black.withOpacity(0.3)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.r),
+                borderSide: BorderSide(color: Colors.black.withOpacity(0.3)),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
