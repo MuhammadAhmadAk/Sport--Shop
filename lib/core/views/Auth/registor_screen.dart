@@ -61,99 +61,102 @@ class _RegistorScreenState extends State<RegistorScreen> {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-              child: Column(
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Registor",
-                    style: GoogleFonts.montserrat(fontSize: 30.sp),
-                  ),
-                ],
-              ),
-              CustomTextField(
-                label: "Name",
-                controller: nameController,
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              CustomTextField(
-                label: "Email",
-                controller: emailController,
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              PasswordTextfield(
-                label: "Password",
-                controller: passController,
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              PasswordTextfield(
-                label: "Confirm Password",
-                controller: confirmPassController,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              (state is AuthLoadingState)
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : CustombuttonWidget(
-                      text: "Registor",
-                      buttonWidth: 330.w,
-                      buttonHeight: 50.h,
-                      buttonBackgroundColor: Colors.deepPurpleAccent,
-                      onPressed: () async {
-                        if (passController.text == confirmPassController) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return PasswordMatchDialog(passwordMatch: false);
-                            },
-                          );
-                        } else {
-                          await context.read<AuthCubit>().registor(
-                              nameController.text,
-                              emailController.text.trim(),
-                              passController.text.trim());
-                        }
-                      }),
-              SizedBox(
-                height: 10.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "already have a account ?",
-                    style: GoogleFonts.montserrat(fontSize: 15.sp),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ));
-                    },
-                    child: Text(
-                      "Login",
-                      style: GoogleFonts.montserrat(
-                          fontSize: 15.sp, color: Colors.deepPurpleAccent),
+              child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Registor",
+                      style: GoogleFonts.montserrat(fontSize: 30.sp),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                CustomTextField(
+                  label: "Name",
+                  controller: nameController,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                CustomTextField(
+                  label: "Email",
+                  controller: emailController,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                PasswordTextfield(
+                  label: "Password",
+                  controller: passController,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                PasswordTextfield(
+                  label: "Confirm Password",
+                  controller: confirmPassController,
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                (state is AuthLoadingState)
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : CustombuttonWidget(
+                        text: "Registor",
+                        buttonWidth: 330.w,
+                        buttonHeight: 50.h,
+                        buttonBackgroundColor: Colors.deepPurpleAccent,
+                        onPressed: () async {
+                          if (passController.text == confirmPassController) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return PasswordMatchDialog(
+                                    passwordMatch: false);
+                              },
+                            );
+                          } else {
+                            await context.read<AuthCubit>().registor(
+                                nameController.text,
+                                emailController.text.trim(),
+                                passController.text.trim());
+                          }
+                        }),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "already have a account ?",
+                      style: GoogleFonts.montserrat(fontSize: 15.sp),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ));
+                      },
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 15.sp, color: Colors.deepPurpleAccent),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           )),
         );
       },
