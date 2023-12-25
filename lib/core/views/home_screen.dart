@@ -1,13 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:category_navigator/category_navigator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/bloc/cart/cart_cubit.dart';
 import 'package:shop_app/bloc/cart/cart_state.dart';
+import 'package:shop_app/core/Utils/Widgets/custom_button.dart';
 import 'package:shop_app/core/Utils/Widgets/custom_drawer.dart';
 import 'package:shop_app/core/Utils/Widgets/search_textfiled.dart';
 import 'package:shop_app/core/models/usermodel.dart';
@@ -28,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> itemsList = const ['All', 'Cricket', 'Football', 'Hockey'];
+  var currentIndex = 0;
   int selectedCategoryIndex = 0; // Initialize with the index of 'All'
 
   getcartItems() async {
@@ -101,40 +101,124 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 20.h,
             ),
-            CategoryNavigator(
-              itemElevation: 0.0,
-              unselectedBackgroundColor: Colors.white,
-              navigatorBackgroundColor: Colors.white,
-              highlightBackgroundColor: Colors.deepPurpleAccent,
-              navigatorElevation: 1,
-              expand: false,
-              labels: itemsList,
-              navigatorController: NavigatorController(),
-              scrollController: ScrollController(),
-              itemMargin: EdgeInsets.all(12.w),
-              unselectedTextStyle: GoogleFonts.montserrat(
-                fontSize: 12.sp,
-                color: Colors.black,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Container(
+                height: 50.h,
+                decoration: BoxDecoration(
+                    color: Colors.white10,
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CustombuttonWidget(
+                        buttonHeight: 25.h,
+                        buttonWidth: 50.w,
+                        buttonBackgroundColor: (selectedCategoryIndex == 0)
+                            ? Colors.deepPurpleAccent
+                            : Colors.white,
+                        textColor: (selectedCategoryIndex == 0)
+                            ? Colors.white
+                            : Colors.deepPurpleAccent,
+                        text: "All",
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                        onPressed: () {
+                          changeScreen(0);
+                        }),
+                    CustombuttonWidget(
+                        buttonHeight: 25.h,
+                        buttonWidth: 80.w,
+                        buttonBackgroundColor: (selectedCategoryIndex == 1)
+                            ? Colors.deepPurpleAccent
+                            : Colors.white,
+                        textColor: (selectedCategoryIndex == 1)
+                            ? Colors.white
+                            : Colors.deepPurpleAccent,
+                        text: "Cricket",
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                        onPressed: () {
+                          changeScreen(1);
+                        }),
+                    CustombuttonWidget(
+                        buttonHeight: 25.h,
+                        buttonWidth: 80.w,
+                        text: "Football",
+                        buttonBackgroundColor: (selectedCategoryIndex == 2)
+                            ? Colors.deepPurpleAccent
+                            : Colors.white,
+                        textColor: (selectedCategoryIndex == 2)
+                            ? Colors.white
+                            : Colors.deepPurpleAccent,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                        onPressed: () {
+                          changeScreen(2);
+                        }),
+                    CustombuttonWidget(
+                        buttonHeight: 25.h,
+                        buttonWidth: 80.w,
+                        text: "Hockey",
+                        buttonBackgroundColor: (selectedCategoryIndex == 3)
+                            ? Colors.deepPurpleAccent
+                            : Colors.white,
+                        textColor: (selectedCategoryIndex == 3)
+                            ? Colors.white
+                            : Colors.deepPurpleAccent,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                        onPressed: () {
+                          changeScreen(3);
+                        })
+                  ],
+                ),
               ),
-              highlightTextStyle: GoogleFonts.montserrat(
-                fontSize: 11.sp,
-                color: Colors.white,
-              ),
-              itemPadding:
-                  EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-              onChange: (activeIndex) {
-                setState(() {
-                  selectedCategoryIndex = activeIndex;
-                });
-              },
             ),
             Expanded(
               child: _buildContent(selectedCategoryIndex),
             ),
+
+            // CategoryNavigator(
+            //   itemElevation: 0.0,
+            //   unselectedBackgroundColor: Colors.white,
+            //   navigatorBackgroundColor: Colors.white,
+            //   highlightBackgroundColor: Colors.deepPurpleAccent,
+            //   navigatorElevation: 1,
+            //   expand: false,
+            //   labels: itemsList,
+            //   navigatorController: NavigatorController(),
+            //   scrollController: ScrollController(),
+            //   itemMargin: EdgeInsets.all(12.w),
+            //   unselectedTextStyle: GoogleFonts.montserrat(
+            //     fontSize: 12.sp,
+            //     color: Colors.black,
+            //   ),
+            //   highlightTextStyle: GoogleFonts.montserrat(
+            //     fontSize: 11.sp,
+            //     color: Colors.white,
+            //   ),
+            //   itemPadding:
+            //       EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+            //   onChange: (activeIndex) {
+            //     setState(() {
+            //       selectedCategoryIndex = activeIndex;
+            //     });
+            //   },
+            // ),
+            // Expanded(
+            //   child: _buildContent(selectedCategoryIndex),
+            // ),
           ],
         ),
       ),
     );
+  }
+
+  void changeScreen(int screenIndex) {
+    setState(() {
+      selectedCategoryIndex = screenIndex;
+    });
   }
 }
 

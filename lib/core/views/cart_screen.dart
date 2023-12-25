@@ -70,7 +70,7 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      CustomAppBar(title: "Cart", applyleading: true),
+                      CustomAppBar(title: "Cart", applyleading: false),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(

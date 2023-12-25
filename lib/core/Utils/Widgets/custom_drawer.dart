@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/core/Utils/sharedpref_helper.dart';
 import 'package:shop_app/core/views/Auth/login_screen.dart';
+import 'package:shop_app/core/views/Auth/profile_screen.dart';
+import 'package:shop_app/core/views/cart_screen.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -55,7 +57,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
               DrawerList(
                 title: 'Profile',
-                onTap: () async {},
+                onTap: () async {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(),
+                      ));
+                },
               ),
               const Divider(
                 color: Colors.black38,
@@ -71,7 +79,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
               DrawerList(
                 title: 'Cart',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartScreen(),
+                      ));
+                },
               ),
               const Divider(
                 color: Colors.black38,
